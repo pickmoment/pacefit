@@ -1,0 +1,23 @@
+<!doctype html><html lang="ko"><meta charset="utf-8"><title>PaceFit 재생 테스트 - YouTube</title>
+<style>
+body{margin:0;padding:35px;background:#e9ece3;color:#263c30;font:14px -apple-system,BlinkMacSystemFont,sans-serif}h1{font-size:18px;margin:0 0 20px}#movie_player{position:relative;width:900px;height:506px;background:radial-gradient(ellipse at 70% 30%,#3b5440,#192c24 70%);overflow:hidden;border-radius:14px;color:#eff4e7}video{position:absolute;width:100%;height:100%}.content{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;pointer-events:none}.content p{font-size:12px;letter-spacing:4px;color:#c7e18c}.content strong{font-size:45px;line-height:1.5;letter-spacing:-2px;text-align:center}.content small{margin-top:30px;color:#acbea4}#movie_player:fullscreen{width:100vw;height:100vh;border-radius:0}.controls{margin-top:20px;display:flex;gap:12px;align-items:center}input,textarea,[contenteditable]{border:1px solid #b0bda4;border-radius:5px;padding:8px;background:#fafcf6;width:160px;min-height:20px}
+</style>
+<h1>PaceFit · 실제 미디어를 재생하는 테스트 페이지</h1><div id="movie_player"><video class="html5-main-video"></video><div class="content"><p>LESS CLICK. MORE FLOW.</p><strong>영상의 흐름은 그대로.<br>속도만, 내 페이스로.</strong><small>PaceFit · 컨트롤 동작 확인용 무음 미디어</small></div></div>
+<div class="controls"><input id="search" aria-label="검색"><textarea id="comment" aria-label="댓글"></textarea><div id="editable" contenteditable="true" role="textbox" aria-label="편집기"><span>댓글 작성</span></div><div id="shadow-editor"></div><button id="fullscreen">전체화면</button></div>
+<script>
+document.getElementById('shadow-editor').attachShadow({mode:'open'}).innerHTML='<textarea aria-label="Shadow editor"></textarea>';
+document.getElementById('fullscreen').onclick=()=>document.getElementById('movie_player').requestFullscreen();
+const video = document.querySelector('video');
+// A real muted WAV gives the isolated extension world native paused/seeking/ratechange
+// behavior. Overriding a property in the page world would not reach isolated wrappers.
+const header = new ArrayBuffer(44), view = new DataView(header);
+const ascii = (offset, text) => [...text].forEach((c, i) => view.setUint8(offset + i, c.charCodeAt(0)));
+const bytes = 8000 * 2 * 120;
+ascii(0, 'RIFF'); view.setUint32(4, 36 + bytes, true); ascii(8, 'WAVE'); ascii(12, 'fmt ');
+view.setUint32(16, 16, true); view.setUint16(20, 1, true); view.setUint16(22, 1, true);
+view.setUint32(24, 8000, true); view.setUint32(28, 16000, true); view.setUint16(32, 2, true); view.setUint16(34, 16, true);
+ascii(36, 'data'); view.setUint32(40, bytes, true);
+video.muted = true;
+video.src = URL.createObjectURL(new Blob([header, new Uint8Array(bytes)], { type: 'audio/wav' }));
+video.addEventListener('loadedmetadata', () => { video.currentTime = 10; video.play().catch(() => {}); });
+</script></html>

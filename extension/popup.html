@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ko">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>PaceFit — 바로, 내 속도로</title><link rel="stylesheet" href="popup.css"></head>
+<body>
+  <main class="app">
+    <header><span class="brand"><span class="brand-icon" aria-hidden="true"><i></i><i></i><i></i><i></i></span>PaceFit</span><span class="edition">ANY VIDEO. YOUR PACE.</span></header>
+    <div id="demo-banner" class="demo-banner" hidden>화면 데모 · 실제 영상의 속도는 바뀌지 않아요.</div>
+    <div class="intro"><h1>바로, 내 속도로.</h1><span id="connection" class="connection">연결 확인 중</span></div>
+    <label class="site-control" for="site-enabled"><span><strong id="site-host">현재 사이트</strong><small>이 사이트에서 PaceFit 사용</small></span><input id="site-enabled" type="checkbox" role="switch" checked></label>
+    <section class="rate-card" aria-labelledby="rate-label">
+      <div class="card-heading"><h2 id="rate-label">재생 속도</h2><span id="step-label">0.1×씩 조절</span></div>
+      <div class="rate-control"><button id="rate-down" type="button" class="round-button" aria-label="배속 낮추기">−</button><div class="rate-value"><label class="sr-only" for="rate-input">재생 배속 직접 입력</label><input id="rate-input" type="number" min="0.25" max="4" step="0.05" value="1.00"><span aria-hidden="true">×</span></div><button id="rate-up" type="button" class="round-button" aria-label="배속 높이기">+</button></div>
+      <label class="sr-only" for="rate-slider">재생 배속 슬라이더</label><input id="rate-slider" type="range" min="0.25" max="4" step="0.05" value="1"><div class="scale" aria-hidden="true"><span>0.25×</span><span>4×</span></div>
+    </section>
+    <section class="quick-section" aria-labelledby="quick-heading"><div class="section-heading"><h2 id="quick-heading">한 번에 바꾸기</h2><span>0.25–4× 지원</span></div><div class="presets" role="group" aria-label="배속 프리셋"><button type="button" data-rate="0.75">0.75×</button><button type="button" data-rate="1">1×</button><button type="button" data-rate="1.25">1.25×</button><button type="button" data-rate="1.5">1.5×</button><button type="button" data-rate="1.75">1.75×</button><button type="button" data-rate="2">2×</button><button type="button" data-rate="2.5">2.5×</button><button type="button" data-rate="3">3×</button></div></section>
+    <div class="preset-controls"><div class="preset-slots" role="group" aria-label="전환 프리셋"><button id="preset-a" type="button" aria-pressed="true">A · 1×</button><button id="preset-b" type="button" aria-pressed="false">B · 2×</button></div><button id="toggle-rate" class="toggle-button" type="button" aria-label="A와 B 프리셋 전환"><span id="toggle-label" aria-hidden="true">↔</span><kbd aria-hidden="true">\</kbd></button></div>
+    <p class="preset-hint">선택한 A·B의 속도를 조절하면 해당 프리셋에 저장돼요.</p>
+    <div class="favorite-row"><button id="favorite" type="button">★ 자주 쓰는 1.5×</button><button id="save-favorite" type="button" title="현재 배속을 자주 쓰는 속도로 저장">현재 속도 저장</button></div>
+    <section id="keyboard-guide" class="keyboard-guide" aria-label="영상에서 사용하는 단축키"><span><kbd>[</kbd> 느리게</span><span><kbd>]</kbd> 빠르게</span><span><kbd>\</kbd> A ↔ B 전환</span></section>
+    <p id="status" class="status" role="status">영상을 연결하는 중이에요.</p>
+    <details id="exceptions" class="settings"><summary>사이트 예외 목록 <span id="exception-count">0개</span></summary><div class="settings-body"><form id="exception-form"><label class="sr-only" for="excluded-domain">제외할 사이트 도메인</label><input id="excluded-domain" type="text" placeholder="example.com 또는 사이트 주소" autocomplete="off" spellcheck="false"><button type="submit">추가</button></form><ul id="exception-list"></ul><p id="exception-note">도메인과 모든 하위 도메인에 적용돼요. 예외를 추가하면 버튼·단축키·배속 유지가 꺼져요.</p></div></details>
+    <details id="preferences" class="settings"><summary>사용 방식 설정 <span aria-hidden="true">⌄</span></summary><div class="settings-body"><label class="setting-row" for="step">한 번에 조절할 간격<select id="step"><option value="0.05">0.05× · 미세하게</option><option value="0.1" selected>0.1× · 기본</option><option value="0.25">0.25× · 빠르게</option></select></label><label class="setting-row" for="show-overlay">영상 위에 조절 버튼 표시<input id="show-overlay" type="checkbox" role="switch" checked></label><label class="setting-row" for="shortcuts">영상에서 키보드 단축키 사용<input id="shortcuts" type="checkbox" role="switch" checked></label><label class="setting-row" for="remember-rate">다음 영상에도 배속 유지<input id="remember-rate" type="checkbox" role="switch" checked></label><p id="remembered-rate" aria-live="polite"></p><p>검색창·댓글 등 입력 중에는 단축키가 작동하지 않아요. 임베드 영상과 HTML5 오디오도 지원해요.</p></div></details>
+    <footer><span>Stay curious. Keep your pace.</span><span>v0.3.5</span></footer>
+    <p id="toast" class="toast" role="status" aria-live="polite" hidden></p>
+  </main><script src="core.js"></script><script src="popup.js"></script>
+</body></html>
