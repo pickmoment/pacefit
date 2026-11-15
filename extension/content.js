@@ -162,8 +162,8 @@
     if (!host || !selected) return;
     const rect = anchorRect(), visible = rect && rectVisible(rect);
     const audio = selected.media.tagName === 'AUDIO';
-    const left = visible ? C.clamp(rect.left + 14, 8, Math.max(8, innerWidth - (panelOpen ? 268 : 170))) : 14;
-    const top = visible ? C.clamp(audio ? rect.top - 44 : rect.top + 14, 8, Math.max(8, innerHeight - 44)) : 14;
+    const left = visible ? C.clamp(rect.left + 6, 4, Math.max(4, innerWidth - (panelOpen ? 264 : 130))) : 6;
+    const top = visible ? C.clamp(audio ? rect.top - 34 : rect.top + 6, 4, Math.max(4, innerHeight - 32)) : 6;
     host.style.setProperty('--pacefit-left', `${left}px`); host.style.setProperty('--pacefit-top', `${top}px`);
     const hovered = Boolean(visible && (containsPoint(rect, pointer) || (host.hasAttribute('data-hovered') || panelOpen) && containsPoint(host.getBoundingClientRect(), pointer)));
     host.toggleAttribute('data-hovered', hovered);
